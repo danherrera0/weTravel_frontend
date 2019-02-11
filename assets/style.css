@@ -10,17 +10,19 @@
 
 .logo {
   display: block;
-  height: 50px;
+  height: auto;
   width: 100%;
-  background-color: red;
+  background-color: black;
   clear: both;
+
 }
 
 .logo img {
-  height: 50px;
+  display: block;
+  height: 125px;
   width: auto;
   display: block;
-  margin-left: 15px;
+  margin-left: auto;
   margin-right: auto;
 }
 

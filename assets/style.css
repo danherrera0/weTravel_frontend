@@ -1,0 +1,36 @@
+
+.container {
+  display: flex-box;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.logo {
+  display: block;
+  height: 50px;
+  width: 100%;
+  background-color: red;
+  clear: both;
+}
+
+.header {
+  display: block;
+  height: 40px;
+  width: 100%;
+  background-color: blue;
+  clear: both;
+}
+
+.travel-info {
+
+}
+
+.travel-form {
+
+}
+
+.travel-show {
+  background-color: orange;
+}

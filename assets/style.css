@@ -5,6 +5,7 @@
   align-items: center;
   height: 100%;
   font-family: 'Open Sans', sans-serif;
+  margin: 3%;
 }
 
 .logo {
@@ -13,6 +14,14 @@
   width: 100%;
   background-color: red;
   clear: both;
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+  display: block;
+  margin-left: 15px;
+  margin-right: auto;
 }
 
 .header {

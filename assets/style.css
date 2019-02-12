@@ -3,16 +3,17 @@
   display: flex-box;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  font-family: 'Open Sans', sans-serif;
+  height: auto;
+  font-family: 'Montserrat', sans-serif;
   margin: 3%;
+
 }
 
 .logo {
   display: block;
   height: auto;
   width: 100%;
-  background-color: black;
+  background-color: #003366;
   clear: both;
 
 }
@@ -24,13 +25,15 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+
 }
 
-.header {
+#header {
   display: block;
+  font-family: 'Montserrat', sans-serif;
   height: 40px;
   width: 100%;
-  background-color: blue;
+  color: white;
   clear: both;
 }
 
@@ -39,9 +42,57 @@
 }
 
 .travel-form {
+color: white;
+}
+
+.image-card{
+  width: 350px;
+  height: 450px;
+  border-style: solid;
+  border-color: black;
+  opacity: .8;
+}
+.travel-show {
+  background-color: white;
+  font-family: 'Montserrat', sans-serif;
+  color:black;
+
+}
+.country-container{
+  background-color: white;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  width:4000px;
+  height:100%;
+  position: sticky;
+  max-height: 500px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
 
 }
 
-.travel-show {
-  background-color: orange;
+.country-card{
+  float:left;
+  width:auto;
+  display:inline-block;
+  color:white;
+  padding-right: 10px;
+}
+
+body{
+  background-color:#003366;
+  color:white;
+}
+
+html{
+  background-color: #003366;
+  opacity: .9;
+  font-family: 'Montserrat', sans-serif;
+  color:white;
+}
+
+footer{
+  font-family: 'Permanent Marker', cursive;
+  color: rgb(210,199,136);
 }

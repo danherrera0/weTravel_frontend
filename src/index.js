@@ -1,5 +1,6 @@
 const COUNTRIES_URL = 'http://localhost:3000/api/v1/countries'
 const countryCard = document.getElementById("country-container")
+const travelShow = document.querySelector("travel-show")
 
 let allCountries = []
 

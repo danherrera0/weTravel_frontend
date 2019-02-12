@@ -3,17 +3,16 @@
   align-items: center;
   height: auto;
   font-family: 'Montserrat', sans-serif;
-  margin: 3%;
-
+  margin: 1%;
 }
 
 .logo {
   display: block;
   height: auto;
   width: 100%;
-  background-color: #003366;
+  background-color: white;
   clear: both;
-
+  padding-bottom: 10px;
 }
 
 .logo img {
@@ -23,19 +22,18 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-
 }
 
 #header {
-  display: block;
+  /* display: block; */
   height: 40px;
   width: 100%;
-  color: white;
-  clear: both;
+  color: black;
+  padding-left: 2%;
+  /* clear: both; */
 }
 
 .travel-info {
-
 }
 
 .travel-form {
@@ -45,7 +43,6 @@ color: white;
 .travel-show {
   background-color: white;
   color:black;
-
 }
 
 #country-container{
@@ -53,37 +50,33 @@ color: white;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
-  background-color:#003366;
+  background-color: black;
+  opacity: .9;
 }
 
 .country-card{
   margin: 10px;
   color: white;
   display:inline-block;
-  /* font-family: 'Montserrat', sans-serif; */
+  color:white;
 }
 
 .image-card{
   object-fit: cover;
   width: 350px;
-  height: 450px;
+  height: 550px;
   border-style: solid;
-  border-color: black;
-  opacity: .7;
+  border-color: white;
+  border-radius: 100px;
 }
 
 body{
-  background-color:#003366;
-  color:white;
+  background-color: white;
+  color:black;
 }
 
 html{
-  background-color: #003366;
+  background-color: white;
   opacity: .9;
   color:white;
-}
-
-footer{
-  /* font-family: 'Permanent Marker', cursive;
-  color: rgb(210,199,136); */
 }

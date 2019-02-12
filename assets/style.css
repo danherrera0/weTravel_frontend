@@ -60,6 +60,8 @@ color: white;
   margin: 10px;
   color: white;
   display:inline-block;
+  border-radius: 5px;
+  text-align: center;
   /* font-family: 'Montserrat', sans-serif; */
 }
 
@@ -69,6 +71,7 @@ color: white;
   height: 450px;
   border-style: solid;
   border-color: black;
+  border-radius: 100px;
   opacity: .7;
 }
 

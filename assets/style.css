@@ -33,9 +33,6 @@
   /* clear: both; */
 }
 
-.travel-info {
-}
-
 .travel-form {
 color: white;
 }
@@ -44,6 +41,8 @@ color: white;
   background-color: white;
   color:black;
 }
+
+/* Styling for Country Cards */
 
 #country-container{
   display: flex;
@@ -82,4 +81,31 @@ html{
   background-color: white;
   opacity: .9;
   color:white;
+}
+
+/* Styling for Activity Cards */
+
+#activities-container {
+  display: flex-wrap;
+  justify-content: space-evenly;
+}
+
+.activity-card {
+  display: inline-block;
+  object-fit: cover;
+  width: 350px;
+  height: 550px;
+  margin: 15px;
+  clear: both;
+
+}
+
+.activity-card img {
+  width: 350px;
+  height: 450px;
+  border-radius: 15px;
+}
+
+#activities-container h1 {
+  font-size: 80px;
 }

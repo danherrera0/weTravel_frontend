@@ -1,10 +1,7 @@
 const COUNTRIES_URL = 'http://localhost:3000/api/v1/countries'
-
-const countryCard = document.getElementById("country-container")
-const travelShow = document.querySelector("travel-show")
-
 const ACTIVITIES_URL = 'http://localhost:3000/api/v1/activities'
-
+const countryCard = document.getElementById("country-container")
+const activitiesContainer = document.getElementById("activities-container")
 
 
 let allCountries = []
@@ -13,18 +10,19 @@ let countryActivities
 
 document.addEventListener("DOMContentLoaded", function(event) {
   const countryCard = document.getElementById("country-container")
-  const travelShow = document.querySelector(".travel-show")
+  const activitiesContainer = document.getElementById("activities-container")
 
   getCountries(COUNTRIES_URL)
   getActivities(ACTIVITIES_URL)
 
   countryCard.addEventListener("click", e => {
-
+    console.log('Iamhere');
+    console.log(e.target.id);
     if (e.target.src) {
       countryActivities = filterActivitiesById(e.target.id)
-      // console.log(countryActivities);
-      // console.log(e.target.dataset.country);
-      travelShow.innerHTML = createActivities(countryActivities, e.target.dataset.country)
+      countryCard.style.display = "none"
+      activitiesContainer.innerHTML = `<h1> Activities in ${e.target.dataset.country} </h1>`
+      activitiesContainer.innerHTML += createActivities(countryActivities, e.target.dataset.country)
     }
   })
 
@@ -65,21 +63,13 @@ function createCountries(countries) {
 
 function createActivities(activities, country_name) {
   return activities.map( activity => {
-    return `<h1> Activities in ${country_name} </h1>
-            <div class="activity-container" data-id="${activity.id}">
-             <div class="activity-card">
+    return `<div class="activity-card" data-id="${activity.id}">
                <h2>${activity.name}</h2>
-               <img src="./assets/images/Activities/activity_${activity.id}.jpg">
-               <p>${activity.company}</p>
-               <p>Price: $${activity.price}</p>
-               <p>Tickets Remaining: ${activity.positions_open}</p>
                <p>${activity.city}</p>
-               <p>Rating: ${activity.rating}/5.0</p>
-               <p>Description: ${activity.description}</p>
-               <p>Category: ${activity.category}</p>
-             </div>
+               <img src="./assets/images/Activities/activity_${activity.id}.jpg">
+               <p>Price: $${activity.price}</p>
             </div>`
-  })
+  }).join("")
 }
 
 //------------------------------ Helpers ---------------------------------------

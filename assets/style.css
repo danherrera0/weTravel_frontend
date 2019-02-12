@@ -1,7 +1,5 @@
 
 .container {
-  display: flex-box;
-  flex-direction: column;
   align-items: center;
   height: auto;
   font-family: 'Montserrat', sans-serif;
@@ -30,7 +28,6 @@
 
 #header {
   display: block;
-  font-family: 'Montserrat', sans-serif;
   height: 40px;
   width: 100%;
   color: white;
@@ -45,39 +42,34 @@
 color: white;
 }
 
+.travel-show {
+  background-color: white;
+  color:black;
+
+}
+
+#country-container{
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  background-color:#003366;
+}
+
+.country-card{
+  margin: 10px;
+  color: white;
+  display:inline-block;
+  /* font-family: 'Montserrat', sans-serif; */
+}
+
 .image-card{
+  object-fit: cover;
   width: 350px;
   height: 450px;
   border-style: solid;
   border-color: black;
-  opacity: .8;
-}
-.travel-show {
-  background-color: white;
-  font-family: 'Montserrat', sans-serif;
-  color:black;
-
-}
-.country-container{
-  background-color: white;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  width:4000px;
-  height:100%;
-  position: sticky;
-  max-height: 500px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-
-}
-
-.country-card{
-  float:left;
-  width:auto;
-  display:inline-block;
-  color:white;
-  padding-right: 10px;
+  opacity: .7;
 }
 
 body{
@@ -88,11 +80,10 @@ body{
 html{
   background-color: #003366;
   opacity: .9;
-  font-family: 'Montserrat', sans-serif;
   color:white;
 }
 
 footer{
-  font-family: 'Permanent Marker', cursive;
-  color: rgb(210,199,136);
+  /* font-family: 'Permanent Marker', cursive;
+  color: rgb(210,199,136); */
 }

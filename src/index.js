@@ -33,13 +33,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   document.addEventListener("click", e=>{
     if(e.target.id === "logo-image"){
-      console.log("you clicked the logo")
+      console.log(e.target)
       // write code to redirect to countries view
     }
     if(e.target.id === "purchase-button"){
         let myActivity = findActivity(e.target.dataset.id)
         let travelShow = document.querySelector(".travel-show")
-        travelShow.innerHTML = `
+        activityShow.innerHTML += `
         <div id="form-div">
         <form>
         <h2>Purchase Form</h2>

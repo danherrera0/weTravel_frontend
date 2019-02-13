@@ -12,7 +12,8 @@
   width: 100%;
   background-color: white;
   clear: both;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+  padding-top: 10px;
 }
 
 .logo img {
@@ -55,8 +56,8 @@ color: white;
 .country-card{
   margin: 10px;
   color: white;
-  display:inline-block;
-  color:white;
+  display: inline-block;
+  color: white;
   text-align: center;
 
 }
@@ -76,46 +77,59 @@ body{
   color:black;
 }
 
-html{
+/* html{
   background-color: white;
   opacity: .9;
   color:white;
-}
+} */
 
 /* Styling for Activity Cards */
 
 #activities-container {
   display: flex-wrap;
-  justify-content: space-evenly;
 }
 
 #activities-container h1 {
   font-family: 'Jacques Francois Shadow', cursive;
   font-size: 40px;
-}
-
-.activity-card img {
-  width: 365px;
-  height: 450px;
-  border-radius: 15px;
-  border-style: solid;
-  background-color: red;
+  position: relative;
+  text-align: center;
 
 }
 
-.activity-card{
+.activity-card {
+  display: block;
+  float: left;
+  height: 650px;
+  margin: 1.5%;
+  width: 425px;
   font-family: 'Kalam', cursive;
   letter-spacing: 2px;
-  background-color: white;
-  color:black;
-  padding:1%;
+  background-color: rgb(36, 36, 36);
+  color: white;
+  padding: 10px;
   border-radius: 15px;
   border-style: solid;
   border-color: black;
-  margin: 2%;
-  display: inline-block;
-  object-fit:contain;
-  width: 450px;
-  height: 650px;
-  clear: both;
+  object-fit: contain;
+}
+
+.activity-card img {
+  display: block;
+  margin: auto;
+  width: 365px;
+  height: 450px;
+  border-radius: 15px;
+  /* border-style: solid; */
+
+}
+
+.activity-card h2, .activity-card p {
+  text-align: center;
+}
+
+.activity-card p:nth-child(1) {
+  margin-top: 15px;
+  font-size: 30px;
+
 }

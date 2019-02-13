@@ -166,10 +166,10 @@ body{
   margin: 16px;
   float: left;
   padding: 1%;
-  width:auto;
+  width:30%;
   border-style: dotted;
   border-color: black;
   border-radius: 8px;
   background-color: grey;
-  color: white;
+  color: black;
 }

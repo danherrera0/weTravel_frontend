@@ -108,7 +108,7 @@ function createActivity(activity) {
          <h4> Run by: ${info.company}</h4>
          <h4> Price: $ ${info.price}</h4>
          <h4>Tickets available: ${info.positions_open}</h4>
-         <button data-id="${info.id} "id="purchase-button"> Purchase </button>
+         <button class="ui inverted button" data-id="${info.id} "id="purchase-button"> Purchase </button>
       </div>
       <!--end of ${info.name} showActivity card -->`
   })

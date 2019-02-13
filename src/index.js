@@ -7,23 +7,30 @@ const activitiesContainer = document.getElementById("activities-container")
 let allCountries = []
 let allActivities = []
 let countryActivities
+let foundActivity
 
 document.addEventListener("DOMContentLoaded", function(event) {
   const countryCard = document.getElementById("country-container")
   const activitiesContainer = document.getElementById("activities-container")
+  const activityShow = document.getElementById("activity-show")
 
   getCountries(COUNTRIES_URL)
   getActivities(ACTIVITIES_URL)
 
   countryCard.addEventListener("click", e => {
-    console.log('Iamhere');
-    console.log(e.target.id);
+
     if (e.target.src) {
       countryActivities = filterActivitiesById(e.target.id)
       countryCard.style.display = "none"
       activitiesContainer.innerHTML = `<h1> Activities in ${e.target.dataset.country}: </h1>`
       activitiesContainer.innerHTML += createActivities(countryActivities, e.target.dataset.country)
     }
+  })
+
+  activitiesContainer.addEventListener("click", e => {
+    foundActivity = findActivity(e.target.dataset.id)
+    activitiesContainer.style.display = "none"
+    activityShow.innerHTML = createActivity([foundActivity])
   })
 
 }) // end DOMContentLoaded
@@ -63,19 +70,35 @@ function createCountries(countries) {
 
 function createActivities(activities, country_name) {
   return activities.map( activity => {
-    return `
-            <div class="activity-card" data-id="${activity.id}">
-               <h2>${activity.name}</h2>
-               <p>${activity.city}</p>
-               <img src="./assets/images/Activities/activity_${activity.id}.jpg">
-               <b><p>Price: $${activity.price}</p></b>
+    return `<div class="activity-card" data-id="${activity.id}">
+              <h2>${activity.name}</h2>
+              <p>${activity.city}, ${country_name}</p>
+              <img src="./assets/images/Activities/activity_${activity.id}.jpg" data-id="${activity.id}">
+              <b><p>Price: $${activity.price}</p></b>
             </div>
-            `
+            <!--end of ${activity.name} activity card -->`
   }).join("")
+}
+
+function createActivity(activity) {
+  return activity.map( info => {
+    return `<div class="activity-card" data-id="${info.id}">
+              <img src="./assets/images/Activities/activity_${info.id}.jpg" data-id="${info.id}">
+              <h2>${info.name}</h2>
+              <h2>${info.city}</h2>
+              <p>Price: $${info.price}</p>
+              <p>Price: $${info.description}</p>
+            </div>
+            <!--end of ${info.name} showActivity card -->`
+  })
 }
 
 //------------------------------ Helpers ---------------------------------------
 
 function filterActivitiesById(id) {
   return allActivities.filter( activity => activity.country_id === parseInt(id))
+}
+
+function findActivity(id) {
+  return allActivities.find(activity => activity.id === parseInt(id))
 }

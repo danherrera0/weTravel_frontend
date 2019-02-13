@@ -1,16 +1,19 @@
 const COUNTRIES_URL = 'http://localhost:3000/api/v1/countries'
 const ACTIVITIES_URL = 'http://localhost:3000/api/v1/activities'
 const countryCard = document.getElementById("country-container")
-  let activitiesContainer = document.getElementById("activities-container")
+const activitiesContainer = document.getElementById("activities-container")
+
+
 let allCountries = []
 let allActivities = []
 let countryActivities
 let foundActivity
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  let countryCard = document.getElementById("country-container")
-  let activitiesContainer = document.getElementById("activities-container")
-  let activityShow = document.getElementById("activity-show")
+  const countryCard = document.getElementById("country-container")
+  const activitiesContainer = document.getElementById("activities-container")
+  const activityShow = document.getElementById("activity-show")
+  const logo = document.getElementById("logo-image")
 
   getCountries(COUNTRIES_URL)
   getActivities(ACTIVITIES_URL)
@@ -21,43 +24,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
       countryCard.style.display = "none"
       activitiesContainer.innerHTML = `<h1> Activities in ${e.target.dataset.country}: </h1>`
       activitiesContainer.innerHTML += createActivities(countryActivities, e.target.dataset.country)
+      activitiesContainer.style.display = "block"
     }
   })
-    activitiesContainer.addEventListener("click", e => {
-      if(e.target.className === "more-info"){
-        foundActivity = findActivity(e.target.dataset.id)
-        activitiesContainer.style.display = "none"
-        activityShow.innerHTML = createActivity([foundActivity])
-      }
-    })
 
-  document.addEventListener("click", e=>{
-    if(e.target.id === "logo-image"){
-      console.log(e.target)
-      // write code to redirect to countries view
+  activitiesContainer.addEventListener("click", e => {
+    if(e.target.className === "more-info ui inverted button"){
+      foundActivity = findActivity(e.target.dataset.id)
+      activitiesContainer.style.display = "none"
+      activityShow.innerHTML = createActivity([foundActivity])
+      activityShow.style.display = "block"
     }
+  })
+
+  logo.addEventListener("click", e => {
+    activitiesContainer.innerHTML= "none"
+    activityShow.style.display = "none"
+    countryCard.innerHTML = createCountries(allCountries)
+    countryCard.style.display = "block"
+  })
+
+  activityShow.addEventListener("click", e => {
     if(e.target.id === "purchase-button"){
         let myActivity = findActivity(e.target.dataset.id)
         let travelShow = document.querySelector(".travel-show")
-        activityShow.innerHTML += `
-        <div id="form-div">
-        <form>
-        <h2>Purchase Form</h2>
-        <h3>Chosen Activity:${myActivity.name}</h3>
-        <h4>Price: $${myActivity.price}</h4>
-        <label class="ui black ribbon label">Name:</label><br>
-        <input class="ui fluid icon input" type="text" name="name" placeholder="Enter Name"><br>
-        <label class="ui black ribbon label">Email:</label><br>
-        <input class="ui fluid icon input" type="text" name="Email" placeholder="Enter Email"><br>
-        <label class="ui black ribbon label">Quantity:</label><br>
-        <input class="ui fluid icon input" type="text" name="quantity" placeholder="Enter quantity"><br>
-        <label class="ui black ribbon label">Desired Date:</label><br>
-        <input class="ui fluid icon input" type="date" name="Activity-Date"><br><br>
-        <input class="ui green button" type="submit" value="Submit">
-        </form>
-        </div>`
+        activityShow.innerHTML += createForm([myActivity])
     }
-  })// TO DO: WRITE CODE TO COLLECT FORM INFO
+  })
 
 }) // end DOMContentLoaded
 
@@ -99,7 +92,7 @@ function createActivities(activities, country_name) {
               <p>${activity.city}, ${country_name}</p>
               <img src="./assets/images/Activities/activity_${activity.id}.jpg" data-id="${activity.id}">
               <b><p>Price: $${activity.price}</p></b>
-              <button class="more-info" data-id="${activity.id}"> See details </button>
+              <button class="more-info ui inverted button" data-id="${activity.id}"> See details </button>
             </div>
             <!--end of ${activity.name} activity card -->`
   }).join("")
@@ -118,6 +111,28 @@ function createActivity(activity) {
          <button data-id="${info.id} "id="purchase-button"> Purchase </button>
       </div>
       <!--end of ${info.name} showActivity card -->`
+  })
+}
+
+function createForm(activity) {
+  return activity.map( info => {
+    return `<div id="form-div">
+              <form>
+                <h2>Purchase Form</h2>
+                <h3>Chosen Activity: ${info.name}</h3>
+                <h4>Price: $${info.price}</h4>
+                <label class="ui black ribbon label">Name:</label><br>
+                <input class="ui fluid icon input" type="text" name="name" placeholder="Enter Name"><br>
+                <label class="ui black ribbon label">Email:</label><br>
+                <input class="ui fluid icon input" type="text" name="Email" placeholder="Enter Email"><br>
+                <label class="ui black ribbon label">Quantity:</label><br>
+                <input class="ui fluid icon input" type="text" name="quantity" placeholder="Enter quantity"><br>
+                <label class="ui black ribbon label">Desired Date:</label><br>
+                <input class="ui fluid icon input" type="date" name="Activity-Date"><br><br>
+                <input class="ui green button" type="submit" value="Submit" data-user-id="3" data-id="${info.id}">
+              </form>
+            </div>
+            <!--end of form -->`
   })
 }
 

@@ -39,9 +39,8 @@ color: white;
 }
 
 /* .travel-show {
-  color:black;
-} */
 
+} */
 /* Styling for Country Cards */
 
 #country-container{
@@ -132,4 +131,34 @@ body{
   margin-top: 15px;
   font-size: 30px;
 
+}
+#activity-show{
+  width: 200px;
+}
+.detail-card{
+  background-color: yellow;
+  display:inline-block;
+  padding: 1%;
+  width: 400px;
+  height: 700px;
+}
+
+.detail-card img{
+  width: 325px;
+  height: 370px;
+  border-style: solid;
+  border-color: black;
+  border-style: double;
+}
+
+#form-div{
+  display: inline-block;
+  float: left;
+  margin: 10%;
+  padding: 1%;
+  width:30%;
+  border-style: solid;
+  border-color: black;
+  border-radius: 30px;
+  background-color: green;
 }

@@ -108,7 +108,7 @@ function createActivity(activity) {
          <h4> Run by: ${info.company}</h4>
          <h4> Price: $ ${info.price}</h4>
          <h4>Tickets available: ${info.positions_open}</h4>
-         <button class="ui inverted button" data-id="${info.id} "id="purchase-button"> Purchase </button>
+         <button class="ui inverted button" data-id="${info.id} "id="purchase-button"> Make a Reservation </button>
       </div>
       <!--end of ${info.name} showActivity card -->`
   })
@@ -118,9 +118,9 @@ function createForm(activity) {
   return activity.map( info => {
     return `<div id="form-div">
               <form>
-                <h2>Purchase Form</h2>
-                <h3>Chosen Activity: ${info.name}</h3>
-                <h4>Price: $${info.price}</h4>
+                <h2>${info.name}</h2>
+                <h3> Please fill out the form below...</h3>
+                <h3>Price: $${info.price}</h3>
                 <label class="ui black ribbon label">Name:</label><br>
                 <input class="ui fluid icon input" type="text" name="name" placeholder="Enter Name"><br>
                 <label class="ui black ribbon label">Email:</label><br>
@@ -129,7 +129,7 @@ function createForm(activity) {
                 <input class="ui fluid icon input" type="text" name="quantity" placeholder="Enter quantity"><br>
                 <label class="ui black ribbon label">Desired Date:</label><br>
                 <input class="ui fluid icon input" type="date" name="Activity-Date"><br><br>
-                <input class="ui green button" type="submit" value="Submit" data-user-id="3" data-id="${info.id}">
+                <input class="ui green button" type="submit" value="Reserve" data-user-id="3" data-id="${info.id}">
               </form>
             </div>
             <!--end of form -->`

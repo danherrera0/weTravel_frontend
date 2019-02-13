@@ -136,11 +136,12 @@ body{
 .detail-card{
   display: block;
   float: left;
-  height: 650px;
-  margin: 1.5%;
-  width: 400px;
+  height: auto;
+  margin-left: 35%;
+  margin-top: 2%;
+  margin-right: auto;
+  width: 450px;
   font-family: 'Kalam', cursive;
-  letter-spacing: 2px;
   background-color: rgb(36, 36, 36);
   color: white;
   padding: 10px;
@@ -148,6 +149,7 @@ body{
   border-style: solid;
   border-color: black;
   object-fit: contain;
+
 }
 
 .detail-card img{
@@ -160,6 +162,11 @@ body{
   width: 350px;
   height: 250px;
   border-radius: 15px;
+  padding: 1%;
+}
+.detail-card button{
+  position: sticky;
+  align-content: center;
 }
 
 #form-div{

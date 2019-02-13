@@ -111,6 +111,7 @@ body{
   border-style: solid;
   border-color: black;
   object-fit: contain;
+  text-align: center;
 }
 
 .activity-card img {
@@ -130,7 +131,6 @@ body{
 .activity-card p:nth-child(1) {
   margin-top: 15px;
   font-size: 30px;
-
 }
 
 .detail-card{
@@ -163,12 +163,13 @@ body{
 }
 
 #form-div{
+  margin: 16px;
   float: left;
   padding: 1%;
   width:auto;
-  border-style: solid;
-  border-color: white;
+  border-style: dotted;
+  border-color: black;
   border-radius: 8px;
   background-color: grey;
-  color:white;
+  color: white;
 }

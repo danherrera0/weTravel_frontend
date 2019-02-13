@@ -1,5 +1,6 @@
-const COUNTRIES_URL = 'http://localhost:3000/api/v1/countries'
-const ACTIVITIES_URL = 'http://localhost:3000/api/v1/activities'
+const COUNTRIES_URL = "http://localhost:3000/api/v1/countries"
+const ACTIVITIES_URL = "http://localhost:3000/api/v1/activities"
+const BOOKINGS_URL = "http://localhost:3000/api/v1/bookings"
 const countryCard = document.getElementById("country-container")
 const activitiesContainer = document.getElementById("activities-container")
 
@@ -8,12 +9,14 @@ let allCountries = []
 let allActivities = []
 let countryActivities
 let foundActivity
+let form
 
 document.addEventListener("DOMContentLoaded", function(event) {
   const countryCard = document.getElementById("country-container")
   const activitiesContainer = document.getElementById("activities-container")
   const activityShow = document.getElementById("activity-show")
   const logo = document.getElementById("logo-image")
+
 
   getCountries(COUNTRIES_URL)
   getActivities(ACTIVITIES_URL)
@@ -45,12 +48,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
   })
 
   activityShow.addEventListener("click", e => {
-    if(e.target.id === "purchase-button"){
-        let myActivity = findActivity(e.target.dataset.id)
-        let travelShow = document.querySelector(".travel-show")
-        activityShow.innerHTML += createForm([myActivity])
+
+    if(!activityShow.innerText.includes("Please fill out")) {
+      if (e.target.id === "purchase-button"){
+          let myActivity = findActivity(e.target.dataset.id)
+          let travelShow = document.querySelector(".travel-show")
+          activityShow.innerHTML += createForm([myActivity])
+          form = document.getElementById("form-div")
+      }
+    }
+
+    if (e.target.type === "submit") {
+      e.preventDefault()
+
+      let name = e.target.parentElement.name.value
+      let email = e.target.parentElement.email.value
+      let userId = e.target.dataset.userId
+      let activityId = e.target.dataset.activityId
+      let quant = e.target.parentElement.quantity.value
+      let date = e.target.parentElement.date.value
+      let price = parseInt(e.target.dataset.price) * parseInt(quant)
+
+      postToApi(BOOKINGS_URL, userId, activityId, price, quant, date)
     }
   })
+
+  // // if (form !== "undefined") {
+  //   form.addEventListener("submit", e => {
+  //     e.preventDefault()
+  //     console.log('submitting');
+  //   })
+
 
 }) // end DOMContentLoaded
 
@@ -70,6 +98,23 @@ function getActivities(url) {
   fetch(url)
     .then( resp => resp.json())
     .then( activities => allActivities = activities)
+}
+
+function postToApi(url, userId, activityId, price, quantity, date) {
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      user_id: userId,
+      activity_id: activityId,
+      price: price,
+      tickets_reserved: quantity,
+      start_date: date
+    })
+  })
 }
 
 
@@ -117,19 +162,31 @@ function createActivity(activity) {
 function createForm(activity) {
   return activity.map( info => {
     return `<div id="form-div">
+<<<<<<< HEAD
               <form>
                 <h2>${info.name}</h2>
                 <h3> Please fill out the form below...</h3>
                 <h3>Price: $${info.price}</h3>
+=======
+              <form id="reservation" >
+                <h2>Purchase Form</h2>
+                <h3>Chosen Activity: ${info.name}</h3>
+                <h4>Price: $${info.price}</h4>
+>>>>>>> formPostPurchase
                 <label class="ui black ribbon label">Name:</label><br>
                 <input class="ui fluid icon input" type="text" name="name" placeholder="Enter Name"><br>
                 <label class="ui black ribbon label">Email:</label><br>
-                <input class="ui fluid icon input" type="text" name="Email" placeholder="Enter Email"><br>
+                <input class="ui fluid icon input" type="text" name="email" placeholder="Enter Email"><br>
                 <label class="ui black ribbon label">Quantity:</label><br>
-                <input class="ui fluid icon input" type="text" name="quantity" placeholder="Enter quantity"><br>
+                <input class="ui fluid icon input" type="number" name="quantity" placeholder="Enter quantity"><br>
                 <label class="ui black ribbon label">Desired Date:</label><br>
+<<<<<<< HEAD
                 <input class="ui fluid icon input" type="date" name="Activity-Date"><br><br>
                 <input class="ui green button" type="submit" value="Reserve" data-user-id="3" data-id="${info.id}">
+=======
+                <input class="ui fluid icon input" type="date" name="date"><br><br>
+                <input class="ui green button" type="submit" value="Submit" data-price="${info.price}" data-user-id="3" data-activity-id="${info.id}">
+>>>>>>> formPostPurchase
               </form>
             </div>
             <!--end of form -->`

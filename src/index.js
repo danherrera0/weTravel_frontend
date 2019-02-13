@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if (e.target.src) {
       countryActivities = filterActivitiesById(e.target.id)
       countryCard.style.display = "none"
-      activitiesContainer.innerHTML = `<h1> Activities in ${e.target.dataset.country} </h1>`
+      activitiesContainer.innerHTML = `<h1> Activities in ${e.target.dataset.country}: </h1>`
       activitiesContainer.innerHTML += createActivities(countryActivities, e.target.dataset.country)
     }
   })
@@ -63,12 +63,14 @@ function createCountries(countries) {
 
 function createActivities(activities, country_name) {
   return activities.map( activity => {
-    return `<div class="activity-card" data-id="${activity.id}">
+    return `
+            <div class="activity-card" data-id="${activity.id}">
                <h2>${activity.name}</h2>
                <p>${activity.city}</p>
                <img src="./assets/images/Activities/activity_${activity.id}.jpg">
-               <p>Price: $${activity.price}</p>
-            </div>`
+               <b><p>Price: $${activity.price}</p></b>
+            </div>
+            `
   }).join("")
 }
 

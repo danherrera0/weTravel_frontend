@@ -37,10 +37,9 @@
 color: white;
 }
 
-.travel-show {
-  background-color: white;
+/* .travel-show {
   color:black;
-}
+} */
 
 /* Styling for Country Cards */
 
@@ -90,22 +89,33 @@ html{
   justify-content: space-evenly;
 }
 
-.activity-card {
-  display: inline-block;
-  object-fit: cover;
-  width: 350px;
-  height: 550px;
-  margin: 15px;
-  clear: both;
-
+#activities-container h1 {
+  font-family: 'Jacques Francois Shadow', cursive;
+  font-size: 40px;
 }
 
 .activity-card img {
-  width: 350px;
+  width: 365px;
   height: 450px;
   border-radius: 15px;
+  border-style: solid;
+  background-color: red;
+
 }
 
-#activities-container h1 {
-  font-size: 80px;
+.activity-card{
+  font-family: 'Kalam', cursive;
+  letter-spacing: 2px;
+  background-color: white;
+  color:black;
+  padding:1%;
+  border-radius: 15px;
+  border-style: solid;
+  border-color: black;
+  margin: 2%;
+  display: inline-block;
+  object-fit:contain;
+  width: 450px;
+  height: 650px;
+  clear: both;
 }

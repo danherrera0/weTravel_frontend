@@ -1,16 +1,19 @@
 const COUNTRIES_URL = 'http://localhost:3000/api/v1/countries'
 const ACTIVITIES_URL = 'http://localhost:3000/api/v1/activities'
 const countryCard = document.getElementById("country-container")
-  let activitiesContainer = document.getElementById("activities-container")
+const activitiesContainer = document.getElementById("activities-container")
+
+
 let allCountries = []
 let allActivities = []
 let countryActivities
 let foundActivity
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  let countryCard = document.getElementById("country-container")
-  let activitiesContainer = document.getElementById("activities-container")
-  let activityShow = document.getElementById("activity-show")
+  const countryCard = document.getElementById("country-container")
+  const activitiesContainer = document.getElementById("activities-container")
+  const activityShow = document.getElementById("activity-show")
+  const logo = document.getElementById("logo-image")
 
   getCountries(COUNTRIES_URL)
   getActivities(ACTIVITIES_URL)
@@ -21,21 +24,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
       countryCard.style.display = "none"
       activitiesContainer.innerHTML = `<h1> Activities in ${e.target.dataset.country}: </h1>`
       activitiesContainer.innerHTML += createActivities(countryActivities, e.target.dataset.country)
+      activitiesContainer.style.display = "block"
     }
   })
-    activitiesContainer.addEventListener("click", e => {
-      if(e.target.className === "more-info"){
-        foundActivity = findActivity(e.target.dataset.id)
-        activitiesContainer.style.display = "none"
-        activityShow.innerHTML = createActivity([foundActivity])
-      }
-    })
+
+  activitiesContainer.addEventListener("click", e => {
+    if(e.target.className === "more-info"){
+      foundActivity = findActivity(e.target.dataset.id)
+      activitiesContainer.style.display = "none"
+      activityShow.innerHTML = createActivity([foundActivity])
+      activityShow.style.display = "block"
+    }
+  })
+
+  logo.addEventListener("click", e => {
+    activitiesContainer.innerHTML= "none"
+    activityShow.style.display = "none"
+    countryCard.innerHTML = createCountries(allCountries)
+    countryCard.style.display = "block"
+  })
 
   document.addEventListener("click", e=>{
-    if(e.target.id === "logo-image"){
-      console.log(e.target)
-      // write code to redirect to countries view
-    }
+
     if(e.target.id === "purchase-button"){
         let myActivity = findActivity(e.target.dataset.id)
         let travelShow = document.querySelector(".travel-show")

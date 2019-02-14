@@ -2,8 +2,8 @@ const COUNTRIES_URL = "http://localhost:3000/api/v1/countries"                //
 const ACTIVITIES_URL = "http://localhost:3000/api/v1/activities"              // RESTful url to GET all activities
 const BOOKINGS_URL = "http://localhost:3000/api/v1/bookings"                  // RESTful url to POST a new booking
 
-let allCountries = []         // local variable to hold all counrtires -- set after GET to api
-let allActivities = []        // local variable to hold all activities -- set after GET to api
+let allCountries = []         // local variable to hold all counrtires -- set after GET to API
+let allActivities = []        // local variable to hold all activities -- set after GET to API 
 let countryActivities         // local variable to hold activities filtered after a click on a specific country
 let foundActivity             // local variable to hold a specific activity after a click on that activity
 
@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   getActivities(ACTIVITIES_URL)     // fetch to API to GET all activities
   getCountries(COUNTRIES_URL)       // fetch to API to GET all countries
-
 
   // event listener for clicks on country card images
   countryCard.addEventListener("click", e => {

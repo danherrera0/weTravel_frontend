@@ -121,6 +121,10 @@ body{
   border-color: black;
   object-fit: contain;
   text-align: center;
+  transition: transform 1s;
+}
+.activity-card:hover{
+  transform: scale(.9);
 }
 
 .activity-card img {

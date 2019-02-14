@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   // listen for clicks in activity-show container
   activityShow.addEventListener("click", e => {
-
     // if there is not already a form in this container - then display form on user click
     if(!activityShow.innerText.includes("Please fill out")) {
       // if user clicks on 'Make a Reservation' button then display form
@@ -86,12 +85,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
       let quant = e.target.parentElement.quantity.value
       let date = e.target.parentElement.date.value
       let price = parseInt(e.target.dataset.price) * parseInt(quant)
-      const form = document.getElementById("form")
 
-      // POST new booking to API
-      postToApi(BOOKINGS_URL, userId, activityId, price, quant, date)
-      // reset form fields after submition
-      form.reset()
+      // grap form to be able to reset values after submition
+      const form = document.getElementById("form")
+      // grap tickets Id to be able to update based on user quantity request
+      const ticket = document.getElementById("tickets")
+      foundActivity = findActivity(activityId)
+
+      // only allow reservation if there are enough tickets available
+      if (quant <= foundActivity.positions_open) {
+        // decrement number of tickets available
+        foundActivity.positions_open -= quant
+
+        // POST new booking to API
+        postToBookingsApi(BOOKINGS_URL, userId, activityId, price, quant, date)
+        patchToActivitesApi(`${ACTIVITIES_URL}/${activityId}`, foundActivity.positions_open)
+        // reset form fields after submition
+        form.reset()
+        // optimistally render number of tickets now available to detail card
+        ticket.innerText = `Tickets available: ${foundActivity.positions_open}`
+      } else {
+        alert(`You requested ${quant} tickets, there are only ${foundActivity.positions_open} spaces available.`)
+      }
     }
   })
 
@@ -118,7 +133,7 @@ function getActivities(url) {
 }
 
 // fetch to POST new booking to API
-function postToApi(url, userId, activityId, price, quantity, date) {
+function postToBookingsApi(url, userId, activityId, price, quantity, date) {
   fetch(url, {
     method: "POST",
     headers: {
@@ -135,6 +150,19 @@ function postToApi(url, userId, activityId, price, quantity, date) {
   })
 }
 
+// PATCH to update number of tickets available after an activity reservation is made
+function patchToActivitesApi(url, num_tickets) {
+  fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      positions_open: num_tickets
+    })
+  })
+}
 
 //------------------------------ Create HTML -----------------------------------
 
@@ -173,7 +201,7 @@ function createActivity(activity) {
          <h3>${info.description}</h3>
          <h4> Run by: ${info.company}</h4>
          <h4> Price: $ ${info.price}</h4>
-         <h4>Tickets available: ${info.positions_open}</h4>
+         <h4 id="tickets">Tickets available: ${info.positions_open}</h4>
          <button class="ui inverted button" data-id="${info.id} "id="purchase-button"> Make a Reservation </button>
       </div>
       <!--end of ${info.name} showActivity card -->`
@@ -205,7 +233,7 @@ function createForm(activity) {
 
 //------------------------------ Helpers ---------------------------------------
 
-// helper to filter an activity by ID 
+// helper to filter an activity by ID
 function filterActivitiesById(id) {
   return allActivities.filter( activity => activity.country_id === parseInt(id))
 }

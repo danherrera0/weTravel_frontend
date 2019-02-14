@@ -1,66 +1,84 @@
-const COUNTRIES_URL = "http://localhost:3000/api/v1/countries"
-const ACTIVITIES_URL = "http://localhost:3000/api/v1/activities"
-const BOOKINGS_URL = "http://localhost:3000/api/v1/bookings"
-const countryCard = document.getElementById("country-container")
-const activitiesContainer = document.getElementById("activities-container")
+const COUNTRIES_URL = "http://localhost:3000/api/v1/countries"                // RESTful url to GET all counrtires
+const ACTIVITIES_URL = "http://localhost:3000/api/v1/activities"              // RESTful url to GET all activities
+const BOOKINGS_URL = "http://localhost:3000/api/v1/bookings"                  // RESTful url to POST a new booking
 
+let allCountries = []         // local variable to hold all counrtires -- set after GET to api
+let allActivities = []        // local variable to hold all activities -- set after GET to api
+let countryActivities         // local variable to hold activities filtered after a click on a specific country
+let foundActivity             // local variable to hold a specific activity after a click on that activity
 
-let allCountries = []
-let allActivities = []
-let countryActivities
-let foundActivity
-let form
-
+// listener that only allows all other listeners to work after all content loaded
 document.addEventListener("DOMContentLoaded", function(event) {
-  const countryCard = document.getElementById("country-container")
-  const activitiesContainer = document.getElementById("activities-container")
-  const activityShow = document.getElementById("activity-show")
-  const logo = document.getElementById("logo-image")
+  const countryCard = document.getElementById("country-container")              // variable to hold div element for country cards
+  const activitiesContainer = document.getElementById("activities-container")   // variable to hold div element for activity cards
+  const activityShow = document.getElementById("activity-show")                 // variable to hold div element to show individual activity
+  const logo = document.getElementById("logo-image")                            // variable to hold div element for for weTravel logo
 
 
-  getCountries(COUNTRIES_URL)
-  getActivities(ACTIVITIES_URL)
+  getCountries(COUNTRIES_URL)       // fetch to API to GET all countries
+  getActivities(ACTIVITIES_URL)     // fetch to API to GET all activities
 
+  // event listener for clicks on country card images
   countryCard.addEventListener("click", e => {
+    // if user clicks on a country image, they will be shown all activities for that country
     if(e.target.src) {
+      // filter allActivities based on the slected country
       countryActivities = filterActivitiesById(e.target.id)
+      // remove the country-contanier div
       countryCard.style.display = "none"
+      // add filtered activities to the activities-container
       activitiesContainer.innerHTML = `<h1> Activities in ${e.target.dataset.country}: </h1>`
       activitiesContainer.innerHTML += createActivities(countryActivities, e.target.dataset.country)
+      // display activities-contatiner with filtered activities in it
       activitiesContainer.style.display = "block"
     }
   })
 
+  // event listener that listens for clicks on different activity cards
   activitiesContainer.addEventListener("click", e => {
+    // narrows listern to only react to clicks on the buttons on cards
     if(e.target.className === "more-info ui inverted button"){
+      // find individual activity based on ID
       foundActivity = findActivity(e.target.dataset.id)
+      // remove the activities-contanier div
       activitiesContainer.style.display = "none"
+      // set activity-show div innnerHTML based on the user's selected activity
       activityShow.innerHTML = createActivity([foundActivity])
+      // display activity-show div with selected activity
       activityShow.style.display = "block"
     }
   })
 
+  // listen for any click on the logo
   logo.addEventListener("click", e => {
+    // remove any other containers that may be open from display
     activitiesContainer.innerHTML= "none"
     activityShow.style.display = "none"
+    // display countries-container with country cards
     countryCard.innerHTML = createCountries(allCountries)
     countryCard.style.display = "block"
   })
 
+  // listen for clicks in activity-show container
   activityShow.addEventListener("click", e => {
 
+    // if there is not already a form in this container - then display form on user click
     if(!activityShow.innerText.includes("Please fill out")) {
+      // if user clicks on 'Make a Reservation' button then display form
       if (e.target.id === "purchase-button"){
+          // find activity details
           let myActivity = findActivity(e.target.dataset.id)
-          let travelShow = document.querySelector(".travel-show")
+          // create form in same container with selected activity details
           activityShow.innerHTML += createForm([myActivity])
-          form = document.getElementById("form-div")
       }
     }
 
+    // if a user chooses to submit a reservation form
     if (e.target.type === "submit") {
+      // prevent auto submition of form
       e.preventDefault()
 
+      // grab these fields and save them as local variables to use during POST
       let name = e.target.parentElement.name.value
       let email = e.target.parentElement.email.value
       let userId = e.target.dataset.userId
@@ -68,38 +86,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
       let quant = e.target.parentElement.quantity.value
       let date = e.target.parentElement.date.value
       let price = parseInt(e.target.dataset.price) * parseInt(quant)
+      const form = document.getElementById("form")
 
+      // POST new booking to API
       postToApi(BOOKINGS_URL, userId, activityId, price, quant, date)
+      // reset form fields after submition
+      form.reset()
     }
   })
-
-  // // if (form !== "undefined") {
-  //   form.addEventListener("submit", e => {
-  //     e.preventDefault()
-  //     console.log('submitting');
-  //   })
-
 
 }) // end DOMContentLoaded
 
 //------------------------------ Fetch -----------------------------------------
 
+// fetch for GET of all countries -- pessimistically render content
 function getCountries(url) {
   const countryCard = document.getElementById("country-container")
   fetch(url)
     .then( resp => resp.json())
     .then( countries => {
-      allCountries = countries
+      allCountries = countries      // set local variable equal to returned country info from API
       countryCard.innerHTML = createCountries(allCountries)
     })
 }
 
+// fetch for GET of activities
 function getActivities(url) {
   fetch(url)
     .then( resp => resp.json())
-    .then( activities => allActivities = activities)
+    .then( activities => allActivities = activities)    // set local variable equal to returned activity info from API
 }
 
+// fetch to POST new booking to API
 function postToApi(url, userId, activityId, price, quantity, date) {
   fetch(url, {
     method: "POST",
@@ -120,6 +138,7 @@ function postToApi(url, userId, activityId, price, quantity, date) {
 
 //------------------------------ Create HTML -----------------------------------
 
+// create HTML for country cards
 function createCountries(countries) {
   return countries.map( country => {
     return `<div class="country-card" data-id="${country.id}">
@@ -130,6 +149,7 @@ function createCountries(countries) {
   }).join("")
 }
 
+// create HTML for activity cards
 function createActivities(activities, country_name) {
   return activities.map( activity => {
     return `<div class="activity-card" data-id="${activity.id}">
@@ -143,6 +163,7 @@ function createActivities(activities, country_name) {
   }).join("")
 }
 
+// create HTML for individual activity
 function createActivity(activity) {
   return activity.map( info => {
     return `
@@ -159,10 +180,11 @@ function createActivity(activity) {
   })
 }
 
+// create HTML for form for reservation of given activity
 function createForm(activity) {
   return activity.map( info => {
     return `<div id="form-div">
-              <form>
+              <form id="form">
                 <h2>${info.name}</h2>
                 <h3> Please fill out the form below...</h3>
                 <h3>Price: $${info.price}</h3>
@@ -183,10 +205,12 @@ function createForm(activity) {
 
 //------------------------------ Helpers ---------------------------------------
 
+// helper to filter an activity by ID 
 function filterActivitiesById(id) {
   return allActivities.filter( activity => activity.country_id === parseInt(id))
 }
 
+// helper to find an activity by ID
 function findActivity(id) {
   return allActivities.find(activity => activity.id === parseInt(id))
 }

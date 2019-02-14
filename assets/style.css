@@ -25,11 +25,11 @@
   margin-right: auto;
 }
 
-/* .logo img:hover {
+.logo img:hover {
   animation: shake 2s;
-/* When the animation is finished, start again */
-  /* animation-iteration-count: infinite; */
-/* } */
+
+  animation-iteration-count: .5;
+}
 
 /* #header {
   /* display: block; */
@@ -200,4 +200,26 @@ body{
   border-radius: 8px;
   background-color: grey;
   color: black;
+}
+
+/* Styling for Success page */
+
+#success{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color:white;
+  background-color:#00b5ad;
+  opacity: .85;
+  width: 700px;
+  height: 300px;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 4%;
+}
+
+#success-btn.go-home.ui.inverted.button {
+  display: block;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -14,16 +14,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const activityShow = document.getElementById("activity-show")                 // variable to hold div element to show individual activity
   const logo = document.getElementById("logo-image")                            // variable to hold div element for for weTravel logo
 
-
-  getCountries(COUNTRIES_URL)       // fetch to API to GET all countries
   getActivities(ACTIVITIES_URL)     // fetch to API to GET all activities
+  getCountries(COUNTRIES_URL)       // fetch to API to GET all countries
+
 
   // event listener for clicks on country card images
   countryCard.addEventListener("click", e => {
     // if user clicks on a country image, they will be shown all activities for that country
-    if(e.target.src) {
+    //if(e.target.src) {
       // filter allActivities based on the slected country
       countryActivities = filterActivitiesById(e.target.id)
+      //debugger
       // remove the country-contanier div
       countryCard.style.display = "none"
       // add filtered activities to the activities-container
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       activitiesContainer.innerHTML += createActivities(countryActivities, e.target.dataset.country)
       // display activities-contatiner with filtered activities in it
       activitiesContainer.style.display = "block"
-    }
+    //}
   })
 
   // event listener that listens for clicks on different activity cards
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // listen for any click on the logo
   logo.addEventListener("click", e => {
     // remove any other containers that may be open from display
-    activitiesContainer.innerHTML= "none"
+    activitiesContainer.style.display  = "none"
     activityShow.style.display = "none"
     // display countries-container with country cards
     countryCard.innerHTML = createCountries(allCountries)
@@ -69,6 +70,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
           let myActivity = findActivity(e.target.dataset.id)
           // create form in same container with selected activity details
           activityShow.innerHTML += createForm([myActivity])
+      }
+
+      if (e.target.id === "success-btn"){
+        // remove any other containers that may be open from display
+        activitiesContainer.style.display  = "none"
+        activityShow.style.display = "none"
+        // display countries-container with country cards
+        countryCard.innerHTML = createCountries(allCountries)
+        countryCard.style.display = "block"
       }
     }
 
@@ -104,6 +114,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
         form.reset()
         // optimistally render number of tickets now available to detail card
         ticket.innerText = `Tickets available: ${foundActivity.positions_open}`
+        activityShow.innerHTML = `<div id="success">
+                                   <h2> ${name}, your reservation has been made. </h2>
+                                   <h2>Thank you for your purchase!</h2><hr>
+                                   <h3> Tickets Purchased: ${quant}</h3>
+                                   <button id="success-btn" class="go-home ui inverted button"> Return Home </button>
+                                   <img src="https://vsbly.org/wp-content/uploads/2014/10/paperplane.gif">
+                                  </div>`
       } else {
         alert(`You requested ${quant} tickets, there are only ${foundActivity.positions_open} spaces available.`)
       }
@@ -122,6 +139,7 @@ function getCountries(url) {
     .then( countries => {
       allCountries = countries      // set local variable equal to returned country info from API
       countryCard.innerHTML = createCountries(allCountries)
+
     })
 }
 
@@ -129,7 +147,10 @@ function getCountries(url) {
 function getActivities(url) {
   fetch(url)
     .then( resp => resp.json())
-    .then( activities => allActivities = activities)    // set local variable equal to returned activity info from API
+    .then( activities => {
+      allActivities = activities
+
+    })    // set local variable equal to returned activity info from API
 }
 
 // fetch to POST new booking to API

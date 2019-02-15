@@ -3,7 +3,7 @@ const ACTIVITIES_URL = "http://localhost:3000/api/v1/activities"              //
 const BOOKINGS_URL = "http://localhost:3000/api/v1/bookings"                  // RESTful url to POST a new booking
 
 let allCountries = []         // local variable to hold all counrtires -- set after GET to API
-let allActivities = []        // local variable to hold all activities -- set after GET to API 
+let allActivities = []        // local variable to hold all activities -- set after GET to API
 let countryActivities         // local variable to hold activities filtered after a click on a specific country
 let foundActivity             // local variable to hold a specific activity after a click on that activity
 
@@ -20,18 +20,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // event listener for clicks on country card images
   countryCard.addEventListener("click", e => {
     // if user clicks on a country image, they will be shown all activities for that country
-    //if(e.target.src) {
+    if(e.target.src) {
       // filter allActivities based on the slected country
       countryActivities = filterActivitiesById(e.target.id)
-      //debugger
-      // remove the country-contanier div
-      countryCard.style.display = "none"
-      // add filtered activities to the activities-container
-      activitiesContainer.innerHTML = `<h1> Activities in ${e.target.dataset.country}: </h1>`
-      activitiesContainer.innerHTML += createActivities(countryActivities, e.target.dataset.country)
-      // display activities-contatiner with filtered activities in it
-      activitiesContainer.style.display = "block"
-    //}
+
+      // if there is more than on activity in a country show all activity cards
+      if (countryActivities.length > 1) {
+        // remove the country-contanier div
+        countryCard.style.display = "none"
+        // add filtered activities to the activities-container
+        activitiesContainer.innerHTML = `<h1> Activities in ${e.target.dataset.country}: </h1>`
+        activitiesContainer.innerHTML += createActivities(countryActivities, e.target.dataset.country)
+        // display activities-contatiner with filtered activities in it
+        activitiesContainer.style.display = "block"
+      } else {
+        // find individual activity based on ID
+        foundActivity = findActivity(countryActivities[0].id)
+        // remove the activities-contanier div
+        countryCard.style.display = "none"
+        // set activity-show div innnerHTML based on the user's selected activity
+        activityShow.innerHTML = createActivity([foundActivity])
+        // display activity-show div with selected activity
+        activityShow.style.display = "block"
+      }
+
+    }
   })
 
   // event listener that listens for clicks on different activity cards

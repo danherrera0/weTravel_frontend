@@ -126,13 +126,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         form.reset()
         // optimistally render number of tickets now available to detail card
         ticket.innerText = `Tickets available: ${foundActivity.positions_open}`
-        activityShow.innerHTML = `<div id="success">
-                                   <h2> ${name}, your reservation has been made. </h2>
-                                   <h2>Thank you for your purchase!</h2><hr>
-                                   <h3> Tickets Purchased: ${quant}</h3>
-                                   <button id="success-btn" class="go-home ui inverted button"> Return Home </button>
-                                   <img src="https://vsbly.org/wp-content/uploads/2014/10/paperplane.gif">
-                                  </div>`
+
+        // desplay success page after 2 seconds
+        setTimeout(function() {
+          activityShow.innerHTML = createSuccessPage(name, quant)
+        }, 2000)
+
       } else {
         alert(`You requested ${quant} tickets, there are only ${foundActivity.positions_open} spaces available.`)
       }
@@ -161,7 +160,6 @@ function getActivities(url) {
     .then( resp => resp.json())
     .then( activities => {
       allActivities = activities
-
     })    // set local variable equal to returned activity info from API
 }
 
@@ -262,6 +260,19 @@ function createForm(activity) {
             </div>
             <!--end of form -->`
   })
+}
+
+// create HTML for success page after a reservation is made
+function createSuccessPage(name, quant) {
+  return `<div id="success">
+            <h2> ${name}, your reservation has been made. </h2>
+            <h2>Thank you for your purchase!</h2>
+            <hr>
+            <h3> Tickets Purchased: ${quant}</h3>
+            <button id="success-btn" class="go-home ui inverted button"> Return Home </button>
+            <img src="https://vsbly.org/wp-content/uploads/2014/10/paperplane.gif">
+          </div>
+          <!--end of success page -->`
 }
 
 //------------------------------ Helpers ---------------------------------------

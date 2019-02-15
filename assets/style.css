@@ -27,7 +27,6 @@
 
 .logo img:hover {
   animation: shake 2s;
-
   animation-iteration-count: .5;
 }
 
@@ -56,7 +55,6 @@ color: white;
   white-space: nowrap;
   background-color: black;
   opacity: .9;
-
 }
 
 .country-card {
@@ -65,7 +63,14 @@ color: white;
   display: inline-block;
   color: white;
   text-align: center;
-  transition: transform 1s;
+  animation: moveSlideshow 10s linear;
+
+}
+
+@keyframes moveSlideshow {
+  100% {
+    -webkit-transform: translateX(-750%);
+  }
 }
 
 /* .country-card:hover {

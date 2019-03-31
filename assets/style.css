@@ -30,15 +30,6 @@
   animation-iteration-count: .5;
 }
 
-/* #header {
-  /* display: block; */
-  /* height: 40px; */
-  /* width: 100%; */
-  /* color: black; */
-  /* padding-left: 2%; */
-  /* clear: both; */
-/* } */
-
 .travel-form {
 color: white;
 }
@@ -50,8 +41,7 @@ color: white;
 
 #country-container{
   display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: scroll;
   white-space: nowrap;
   background-color: black;
   opacity: .9;
@@ -63,31 +53,23 @@ color: white;
   display: inline-block;
   color: white;
   text-align: center;
-  animation: moveSlideshow 10s linear;
-
+  animation: moveSlideshow 5s linear;
+  animation-iteration-count: 1;
+  transition-timing-function: ease-out;
 }
 
 @keyframes moveSlideshow {
   100% {
-    -webkit-transform: translateX(-750%);
+    -webkit-transform: translateX(-230%);
   }
 }
-
-/* .country-card:hover {
-  animation: shake 0.6s;
-
-  /* When the animation is finished, start again */
-  /* animation-iteration-count: infinite;
-} */
 
 .image-card{
   object-fit: cover;
   width: 350px;
   height: 550px;
   border-style: solid;
-  border-color: white;
   border-radius: 100px;
-
 }
 
 body{
@@ -103,11 +85,10 @@ body{
 }
 
 #activities-container h1 {
-  font-family: 'Jacques Francois Shadow', cursive;
+  font-family: 'Montserrat', sans-serif;
   font-size: 40px;
   position: relative;
   text-align: center;
-
 }
 
 .activity-card {
@@ -124,7 +105,6 @@ body{
   border-radius: 15px;
   border-style: solid;
   border-color: black;
-
   text-align: center;
   transition: transform 1s;
 }
@@ -133,14 +113,13 @@ body{
 }
 
 .activity-card img {
-  display: block;
-  margin: auto;
   width: 360px;
   height: 455px;
-  border-radius: 15px;
-  border-style: solid;
-  border-color: white;
-  object-fit: cover;
+  border-radius: 10px;
+  object-fit: fill;
+  padding:1%;
+  padding-bottom:1%;
+
 }
 
 .activity-card h2, .activity-card p {
@@ -179,16 +158,13 @@ body{
 }
 
 .detail-card img {
-  border-style: solid;
-  border-color: white;
-  border-style: solid;
-  display: block;
+  display: flex;
+  align-self: center;
   margin: auto;
   margin-bottom: 10%;
-  width: 450px;
+  width: 350px;
   height: auto;
   border-radius: 15px;
-  padding: 1%;
 }
 
 .detail-card h1 {
